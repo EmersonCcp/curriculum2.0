@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 const AllRepositories = () => {
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container px-4 py-16 mx-auto">
         <div className="mb-8">
           <Button variant="ghost" asChild className="gap-2">
             <Link to="/">
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="w-4 h-4" />
               Volver al inicio
             </Link>
           </Button>
         </div>
 
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold md:text-5xl">
             Todos los Repositorios
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -26,7 +26,7 @@ const AllRepositories = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {repositories.map((repo) => (
             <RepositoryCard
               key={repo.id}
@@ -34,8 +34,6 @@ const AllRepositories = () => {
               name={repo.name}
               description={repo.description}
               language={repo.language}
-              stars={repo.stars}
-              forks={repo.forks}
             />
           ))}
         </div>
