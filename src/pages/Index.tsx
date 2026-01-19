@@ -11,7 +11,7 @@ import { FaAngular, FaReact } from "react-icons/fa";
 import type { ReactNode } from "react";
 import { RiNodejsLine, RiTailwindCssFill } from "react-icons/ri";
 import { BiLogoPostgresql } from "react-icons/bi";
-import { DiMongodb, DiRedis } from "react-icons/di";
+import { DiMongodb } from "react-icons/di";
 import { IoLogoFirebase, IoLogoIonic } from "react-icons/io5";
 import { FaFlutter } from "react-icons/fa6";
 
@@ -22,7 +22,7 @@ interface SkillCardProps {
 
 const SkillCard = ({ name, icon }: SkillCardProps) => (
   <div className="group flex flex-col items-center justify-center p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] hover:scale-105">
-    <div className="text-4xl mb-3 transition-transform duration-300 group-hover:scale-110">
+    <div className="mb-3 text-4xl transition-transform duration-300 group-hover:scale-110">
       {icon}
     </div>
     <p className="text-sm font-medium text-center">{name}</p>
@@ -35,33 +35,33 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-background" />
-        <div className="container relative mx-auto px-4 py-24 md:py-32">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div className="container relative px-4 py-24 mx-auto md:py-32">
+          <div className="max-w-4xl mx-auto space-y-8 text-center">
+            <h1 className="text-5xl font-bold text-transparent duration-1000 md:text-7xl bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text animate-in fade-in slide-in-from-bottom-4">
               Desarrollador Full Stack
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+            <p className="text-xl duration-1000 delay-200 md:text-2xl text-muted-foreground animate-in fade-in slide-in-from-bottom-4">
               Creando experiencias web excepcionales con tecnologías modernas
             </p>
-            <div className="flex flex-wrap justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+            <div className="flex flex-wrap justify-center gap-4 duration-1000 delay-300 animate-in fade-in slide-in-from-bottom-4">
               <Button size="lg" className="gap-2" asChild>
                 <a href="#projects">Ver Proyectos</a>
               </Button>
               <Button size="lg" variant="outline" className="gap-2" asChild>
                 <a href="mailto:emerson.paixao52@gmail.com">
-                  <Mail className="h-4 w-4" />
+                  <Mail className="w-4 h-4" />
                   Contactar
                 </a>
               </Button>
             </div>
-            <div className="flex justify-center gap-4 pt-4 animate-in fade-in duration-1000 delay-500">
+            <div className="flex justify-center gap-4 pt-4 duration-1000 delay-500 animate-in fade-in">
               <Button variant="ghost" size="icon" asChild>
                 <a
                   href="https://github.com/EmersonCcp"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="h-5 w-5" />
+                  <Github className="w-5 h-5" />
                 </a>
               </Button>
               <Button variant="ghost" size="icon" asChild>
@@ -70,7 +70,7 @@ const Index = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="h-5 w-5" />
+                  <Linkedin className="w-5 h-5" />
                 </a>
               </Button>
             </div>
@@ -79,10 +79,10 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="max-w-3xl mx-auto text-center space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">Sobre mí</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+      <section className="container px-4 py-16 mx-auto">
+        <div className="max-w-3xl mx-auto space-y-4 text-center">
+          <h2 className="text-3xl font-bold md:text-4xl">Sobre mí</h2>
+          <p className="text-lg leading-relaxed text-muted-foreground">
             Soy un desarrollador apasionado por crear soluciones web innovadoras
             y eficientes. Con experiencia en desarrollo frontend y backend, me
             especializo en construir aplicaciones escalables y centradas en el
@@ -92,18 +92,18 @@ const Index = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="container mx-auto px-4 py-16 bg-secondary/20">
+      <section className="container px-4 py-16 mx-auto bg-secondary/20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="mb-12 text-3xl font-bold text-center md:text-4xl">
             Tecnologías
           </h2>
 
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-center text-muted-foreground">
+              <h3 className="mb-4 text-xl font-semibold text-center text-muted-foreground">
                 Frontend
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                 <SkillCard name="Angular" icon={<FaAngular />} />
                 <SkillCard name="React" icon={<FaReact />} />
                 <SkillCard name="TypeScript" icon={<SiTypescript />} />
@@ -112,10 +112,10 @@ const Index = () => {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-center text-muted-foreground">
+              <h3 className="mb-4 text-xl font-semibold text-center text-muted-foreground">
                 Backend
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                 <SkillCard name="Node.js" icon={<RiNodejsLine />} />
                 <SkillCard name="Express" icon={<SiExpress />} />
                 <SkillCard name="Nestjs" icon={<SiNestjs />} />
@@ -124,20 +124,20 @@ const Index = () => {
             </div>
 
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-center text-muted-foreground">
+              <h3 className="mb-4 text-xl font-semibold text-center text-muted-foreground">
                 Bases de Datos
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                 <SkillCard name="PostgreSQL" icon={<BiLogoPostgresql />} />
                 <SkillCard name="MongoDB" icon={<DiMongodb />} />
                 <SkillCard name="Firebase" icon={<IoLogoFirebase />} />
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-center text-muted-foreground">
+              <h3 className="mb-4 text-xl font-semibold text-center text-muted-foreground">
                 Desarrollo Móvil
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
                 <SkillCard name="Ionic" icon={<IoLogoIonic />} />
                 <SkillCard name="Flutter" icon={<FaFlutter />} />
               </div>
@@ -147,15 +147,15 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Mis Proyectos</h2>
+      <section id="projects" className="container px-4 py-16 mx-auto">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Mis Proyectos</h2>
           <p className="text-lg text-muted-foreground">
             Algunos de los proyectos en los que he trabajado
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
           {[...projects]
             .sort((a, b) => Number(b.year) - Number(a.year))
             .slice(0, 6)
@@ -180,9 +180,9 @@ const Index = () => {
       </section>
 
       {/* Repositories Section */}
-      <section className="container mx-auto px-4 py-16 bg-secondary/20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+      <section className="container px-4 py-16 mx-auto bg-secondary/20">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
             Mis Repositorios
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -190,7 +190,7 @@ const Index = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
           {repositories.slice(0, 3).map((repo) => (
             <RepositoryCard
               key={repo.id}
@@ -210,8 +210,8 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-24">
-        <div className="container mx-auto px-4 py-8">
+      <footer className="mt-24 border-t border-border">
+        <div className="container px-4 py-8 mx-auto">
           <p className="text-center text-muted-foreground">
             © {new Date().getFullYear()} - Desarrollado con ❤️
           </p>
