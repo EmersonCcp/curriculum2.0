@@ -9,6 +9,12 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import AllProjects from "./pages/AllProjects";
 import AllRepositories from "./pages/AllRepositories";
 import RepositoryDetails from "./pages/RepositoryDetails";
+import { AuthProvider } from "./context/AuthContext";
+import Login from "./pages/Login";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import Dashboard from "./pages/admin/Dashboard";
+import CreateBlog from "./pages/admin/CreateBlog";
+import BlogDetails from "./pages/BlogDetails";
 
 const queryClient = new QueryClient();
 
@@ -17,17 +23,29 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/projects" element={<AllProjects />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
-          <Route path="/repositories" element={<AllRepositories />} />
-          <Route path="/repository/:id" element={<RepositoryDetails />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/projects" element={<AllProjects />} />
+            <Route path="/project/:id" element={<ProjectDetails />} />
+            <Route path="/repositories" element={<AllRepositories />} />
+            <Route path="/repository/:id" element={<RepositoryDetails />} />
+            <Route path="/blog/:slug" element={<BlogDetails />} />
+            
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/admin" element={<Dashboard />} />
+              <Route path="/admin/blogs/create" element={<CreateBlog />} />
+              <Route path="/admin/blogs/edit/:id" element={<CreateBlog />} />
+            </Route>
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

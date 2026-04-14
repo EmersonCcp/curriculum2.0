@@ -3,8 +3,11 @@ import { RepositoryCard } from "../components/RepositoryCard";
 import { projects } from "../data/projects";
 import { repositories } from "../data/repositories";
 import { Button } from "../components/ui/button";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPublicBlogs } from "../lib/blogs";
+import { BlogCard } from "../components/BlogCard";
 
 import { SiExpress, SiNestjs, SiTypeorm, SiTypescript } from "react-icons/si";
 import { FaAngular, FaReact } from "react-icons/fa";
@@ -30,6 +33,20 @@ const SkillCard = ({ name, icon }: SkillCardProps) => (
 );
 
 const Index = () => {
+  const [blogs, setBlogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchLatestBlogs = async () => {
+      try {
+        const data = await getPublicBlogs(6); // Load latest 6 blogs max
+        setBlogs(data);
+      } catch (error) {
+        console.error("Error fetching blogs", error);
+      }
+    };
+    fetchLatestBlogs();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -178,6 +195,38 @@ const Index = () => {
           </Button>
         </div>
       </section>
+
+      {/* Blogs Section (If any exist) */}
+      {blogs.length > 0 && (
+        <section className="container px-4 py-16 mx-auto">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl flex items-center justify-center gap-3">
+              <BookOpen className="w-8 h-8 text-primary" />
+              Mis Artículos
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Compartiendo conocimiento, tutoriales y reflexiones
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog.id}
+                id={blog.id}
+                slug={blog.slug}
+                title={blog.title}
+                summary={blog.summary}
+                coverImage={blog.cover_image}
+                category={blog.categories?.name}
+                createdAt={blog.created_at}
+                views={blog.views_count}
+                likes={blog.likes_count}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Repositories Section */}
       <section className="container px-4 py-16 mx-auto bg-secondary/20">
