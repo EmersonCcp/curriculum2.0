@@ -13,12 +13,53 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
 
+  const updateMetaTags = (blogData: any) => {
+    const title = `${blogData.title} | Blog`;
+    const description = blogData.summary || "Lee este interesante artículo en mi blog profesional.";
+    const imageUrl = blogData.cover_image || "https://lovable.dev/opengraph-image-p98pqg.png";
+    const url = window.location.href;
+
+    // Título de la página
+    document.title = title;
+
+    // Función auxiliar para actualizar o crear etiquetas meta
+    const setMetaTag = (property: string, content: string, attrName: string = "property") => {
+      let element = document.querySelector(`meta[${attrName}="${property}"]`);
+      if (element) {
+        element.setAttribute("content", content);
+      } else {
+        const newMeta = document.createElement("meta");
+        newMeta.setAttribute(attrName, property);
+        newMeta.setAttribute("content", content);
+        document.head.appendChild(newMeta);
+      }
+    };
+
+    // Open Graph
+    setMetaTag("og:title", title);
+    setMetaTag("og:description", description);
+    setMetaTag("og:image", imageUrl);
+    setMetaTag("og:url", url);
+    setMetaTag("og:type", "article");
+
+    // Twitter
+    setMetaTag("twitter:title", title, "name");
+    setMetaTag("twitter:description", description, "name");
+    setMetaTag("twitter:image", imageUrl, "name");
+  };
+
   useEffect(() => {
     const fetchBlog = async () => {
       if (!slug) return;
       try {
         const data = await getBlogBySlug(slug);
         setBlog(data);
+        
+        // Actualizar Meta Tags cuando el blog carga
+        if (data) {
+          updateMetaTags(data);
+        }
+        
         // Incrementar vistas de forma silenciosa
         incrementViews(slug);
       } catch (error) {
