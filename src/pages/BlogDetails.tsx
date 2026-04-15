@@ -131,8 +131,10 @@ const BlogDetails = () => {
 
           {/* Render Quill Content */}
           <div 
-            className="ql-editor prose prose-blue sm:prose-lg max-w-none prose-headings:font-bold prose-a:text-blue-600"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            className="blog-article-content"
+            dangerouslySetInnerHTML={{ 
+              __html: blog.content.replace(/&nbsp;|\u00a0/g, ' ') 
+            }}
           />
 
           {/* Tags */}

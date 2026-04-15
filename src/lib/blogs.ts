@@ -16,6 +16,44 @@ export interface BlogInput {
   published: boolean;
 }
 
+export const convertToSlug = (text: string) => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
+const generateUniqueSlug = async (title: string): Promise<string> => {
+  const baseSlug = convertToSlug(title);
+  let slug = baseSlug;
+  let counter = 1;
+  let unique = false;
+
+  while (!unique) {
+    const { data, error } = await supabase
+      .from("blogs")
+      .select("id")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (error) {
+      console.error("Error checking slug uniqueness:", error);
+      throw new Error("Error al verificar la unicidad del slug");
+    }
+
+    if (!data) {
+      unique = true;
+    } else {
+      slug = `${baseSlug}-${counter}`;
+      counter++;
+    }
+  }
+
+  return slug;
+};
+
 export const createBlog = async (blogInput: BlogInput) => {
   const { data: userData, error: userError } = await supabase.auth.getUser();
 
@@ -23,13 +61,8 @@ export const createBlog = async (blogInput: BlogInput) => {
     throw new Error("Usuario no autenticado");
   }
 
-  // Generar un slug básico
-  const slug = blogInput.title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "") + "-" + Date.now(); // se añade timestamp para evitar colisiones
+  // Generar un slug limpio y único
+  const slug = await generateUniqueSlug(blogInput.title);
 
   const { data, error } = await supabase
     .from("blogs")
