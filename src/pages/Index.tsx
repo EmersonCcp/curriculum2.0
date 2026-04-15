@@ -3,9 +3,10 @@ import { RepositoryCard } from "../components/RepositoryCard";
 import { projects } from "../data/projects";
 import { repositories } from "../data/repositories";
 import { Button } from "../components/ui/button";
-import { Github, Linkedin, Mail, BookOpen } from "lucide-react";
+import { Github, Linkedin, Mail, BookOpen, LogIn, LayoutDashboard } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { getPublicBlogs } from "../lib/blogs";
 import { BlogCard } from "../components/BlogCard";
 
@@ -34,6 +35,7 @@ const SkillCard = ({ name, icon }: SkillCardProps) => (
 
 const Index = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchLatestBlogs = async () => {
@@ -52,6 +54,26 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-background" />
+        
+        {/* Admin Login Button */}
+        <div className="absolute top-6 right-6 z-50">
+          <Button variant="ghost" size="sm" asChild className="gap-2 bg-background/50 backdrop-blur-sm border border-border/50 hover:bg-background/80">
+            <Link to={user ? "/admin" : "/login"}>
+              {user ? (
+                <>
+                  <LayoutDashboard className="w-4 h-4" />
+                  Panel Control
+                </>
+              ) : (
+                <>
+                  <LogIn className="w-4 h-4" />
+                  Acceso Admin
+                </>
+              )}
+            </Link>
+          </Button>
+        </div>
+
         <div className="container relative px-4 py-24 mx-auto md:py-32">
           <div className="max-w-4xl mx-auto space-y-8 text-center">
             <h1 className="text-5xl font-bold text-transparent duration-1000 md:text-7xl bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text animate-in fade-in slide-in-from-bottom-4">
